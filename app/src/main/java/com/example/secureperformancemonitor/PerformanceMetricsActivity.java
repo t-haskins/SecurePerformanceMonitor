@@ -49,6 +49,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
     private TextView update_z_force;
     private Button rawDataButton;
     private boolean bound;
+    private double lat = 999, lng = 999;
 
     // security variables
     private StringBuilder stringBuilder = new StringBuilder();
@@ -57,6 +58,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
     private boolean transmitted = false;
     public static boolean passwordEntered = false;
     public static String password;
+    // end of security variables
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -145,9 +147,19 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             // user chose bluetooth settings, launch BluetoothLeActivity
-            launchActivity();
+            Intent intent = new Intent(this, DeviceScanActivity.class);
+            startActivity(intent);
             return true;
-        } else {
+        } else if (item.getItemId() == R.id.action_maps) {
+            Intent intent = new Intent(this, MapsActivity.class);
+            Bundle extras = new Bundle();
+            extras.putDouble("lat", lat);
+            extras.putDouble("lng", lng);
+            intent.putExtras(extras);
+            startActivity(intent);
+            return true;
+        }
+        else {
             // user action was not recognized, invoke superclass to handle it
             return super.onOptionsItemSelected(item);
         }
@@ -183,12 +195,6 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             bluetoothLeService.close();
         }
     };
-
-    // method to launch BluetoothLeActivity
-    private void launchActivity() {
-        Intent intent = new Intent(this, DeviceScanActivity.class);
-        startActivity(intent);
-    }
 
     // method to open raw data popup
     private void openRawDataPopup() {
@@ -244,16 +250,24 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             BigInteger rem;
             BigInteger hund = new BigInteger("100");
             int index = 0;
-
-            while ((decData.compareTo(zero)) == 1) {
-                rem = decData.mod(hund);
-                decData = decData.subtract(rem);
-                decData = decData.divide(hund);
-                index = rem.intValue();
-                output = output + "" + table.charAt(index);
-            }
-
-            transmission = output;
+            int success=1;
+               while ((decData.compareTo(zero)) == 1) {
+                   rem = decData.mod(hund);
+                   decData = decData.subtract(rem);
+                   decData = decData.divide(hund);
+                   index = rem.intValue();
+                   if (index > table.length()) {
+                       success = 0;
+                       break;
+                   }
+                   output = output + "" + table.charAt(index);
+               }
+                if(success==1) {
+                    transmission = output;
+                }
+                else{
+                    transmission=null;
+                }
             Log.i(TAG, "Decrypted String: " + transmission);
             // end of security subsystem
 
@@ -278,8 +292,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                         if (stringBuilder2.length() > 0) {
                             // convert from decimal degrees to degrees minutes seconds
                             double tempDouble1 = Double.parseDouble(stringBuilder2.toString());
+                            lat = tempDouble1;
                             boolean north = true;
-                            if (tempDouble1 <= 0) {
+                            if (tempDouble1 < 0) {
                                 north = false;
                                 tempDouble1 *= -1;
                             }
@@ -321,8 +336,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                         if (stringBuilder2.length() > 0) {
                             // convert from decimal degrees to degrees minutes seconds
                             double tempDouble1 = Double.parseDouble(stringBuilder2.toString());
+                            lng = tempDouble1;
                             boolean east = true;
-                            if (tempDouble1 <= 0) {
+                            if (tempDouble1 < 0) {
                                 east = false;
                                 tempDouble1 *= -1;
                             }
@@ -362,7 +378,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder2.length() > 0) {
-                            int tempInt = Integer.parseInt(stringBuilder2.toString());
+                            // convert to integer then display
+                            double tempDouble = Double.parseDouble(stringBuilder2.toString());
+                            int tempInt = (int) tempDouble;
                             update_temperature.setText((String.valueOf(tempInt) + "°F"));
                         }
 
@@ -397,7 +415,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder2.length() > 0) {
-                            int tempInt = Integer.parseInt(stringBuilder2.toString());
+                            // convert to integer then display
+                            double tempDouble = Double.parseDouble(stringBuilder2.toString());
+                            int tempInt = (int) tempDouble;
                             update_humidity.setText((String.valueOf(tempInt) + "%"));
                         }
 
@@ -414,8 +434,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder2.length() > 0) {
-                            // convert heart rate to an integer
-                            int tempInt = Integer.parseInt(stringBuilder2.toString());
+                            // convert to integer then display
+                            double tempDouble = Double.parseDouble(stringBuilder2.toString());
+                            int tempInt = (int) tempDouble;
                             update_heart_rate.setText(String.valueOf(tempInt));
                         }
 
@@ -504,8 +525,9 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder2.length() > 0) {
-                            // convert speed to an integer
-                            int tempInt = Integer.parseInt(stringBuilder2.toString());
+                            // convert to integer then display
+                            double tempDouble = Double.parseDouble(stringBuilder2.toString());
+                            int tempInt = (int) tempDouble;
                             update_speed.setText(String.valueOf(tempInt));
                         }
                     }

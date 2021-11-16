@@ -8,11 +8,28 @@
         <entry key="..\:/Users/Tyler/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_device_popup.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/Tyler/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_performance_metrics.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/Tyler/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_raw_data_popup.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/background_rectangle.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/bluetooth_settings_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/environment_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/g_force_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/gforce_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/gps_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/heart_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/ic_baseline_directions_run_24_dark.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/ic_baseline_favorite_24_dark.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/ic_baseline_settings_bluetooth_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/map_icon.xml" value="0.3828125" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/drawable/speed_icon.xml" value="0.3828125" />
         <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_device_popup.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_device_scan.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_password_popup.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_performance_metrics.xml" value="0.33" />
         <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/layout/activity_raw_data_popup.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/menu/main_app_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/menu/maps_app+bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/menu/maps_app_bar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/haski/OneDrive/TAMU/FALL2021/ECEN404/SPMAndroidApp/app/src/main/res/menu/scan_app_bar.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
