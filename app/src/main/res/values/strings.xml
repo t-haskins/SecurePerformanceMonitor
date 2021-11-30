@@ -14,7 +14,7 @@
     <string name="latitude">Latitude:</string>
     <string name="longitude">Longitude:</string>
     <string name="altitude">Altitude:</string>
-    <string name="map">map</string>
+    <string name="map">open map</string>
     <string name="movement">Movement</string>
     <string name="steps">steps</string>
     <string name="x_force">X Force:</string>
