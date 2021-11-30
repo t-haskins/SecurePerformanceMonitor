@@ -14,11 +14,14 @@
     <string name="latitude">Latitude:</string>
     <string name="longitude">Longitude:</string>
     <string name="altitude">Altitude:</string>
-    <string name="g_force">G-Force</string>
-    <string name="x_force">X:</string>
-    <string name="y_force">Y:</string>
-    <string name="z_force">Z:</string>
+    <string name="map">map</string>
+    <string name="movement">Movement</string>
+    <string name="steps">steps</string>
+    <string name="x_force">X Force:</string>
+    <string name="y_force">Y Force:</string>
+    <string name="z_force">Z Force:</string>
     <string name="data_unavailable">0</string>
+    <string name="data_unavailable_decimal">0.0</string>
     <string name="ble_data">Raw BLE Data:</string>
 
     <string name="heart_rate_unit">bpm</string>

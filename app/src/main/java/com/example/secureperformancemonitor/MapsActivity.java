@@ -36,15 +36,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -59,14 +50,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         if (lat != 999 && lng != 999) {
+            // add a marker for current position and move the camera
             LatLng currentPos = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(currentPos).title("Current Position"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPos));
         } else {
-            // Add a marker in College Station and move the camera
+            // if no known position add a marker in College Station and move the camera
             LatLng cstat = new LatLng(30.6280, -96.3344);
             mMap.addMarker(new MarkerOptions().position(cstat).title("Welcome to Aggieland!"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(cstat));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cstat, 10));
         }
 
     }

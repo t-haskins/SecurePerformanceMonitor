@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- stop scan action button -->
-    <item
-        android:id="@+id/action_maps"
-        android:icon="@drawable/map_icon"
-        android:title="@string/action_maps"
-        app:showAsAction="ifRoom|withText" />
     <!-- bluetooth settings action button -->
     <item
         android:id="@+id/action_settings"

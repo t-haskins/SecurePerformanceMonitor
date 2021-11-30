@@ -44,10 +44,12 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
     private TextView update_latitude;
     private TextView update_longitude;
     private TextView update_altitude;
+    private TextView update_steps;
     private TextView update_x_force;
     private TextView update_y_force;
     private TextView update_z_force;
     private Button rawDataButton;
+    private Button mapButton;
     private boolean bound;
     private double lat = 999, lng = 999;
 
@@ -58,6 +60,8 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
     private boolean transmitted = false;
     public static boolean passwordEntered = false;
     public static String password;
+    public static BigInteger privateKey = null;
+    public static boolean key = true;
     // end of security variables
 
     private static final int STATE_DISCONNECTED = 0;
@@ -89,6 +93,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
         update_latitude = findViewById(R.id.update_latitude);
         update_longitude = findViewById(R.id.update_longitude);
         update_altitude = findViewById(R.id.update_altitude);
+        update_steps = findViewById(R.id.update_steps);
         update_x_force = findViewById(R.id.update_x_force);
         update_y_force = findViewById(R.id.update_y_force);
         update_z_force = findViewById(R.id.update_z_force);
@@ -100,6 +105,20 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 openRawDataPopup();
                 return true;
+            }
+        });
+
+        // instantiate map button
+        mapButton = findViewById(R.id.map_button);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerformanceMetricsActivity.this, MapsActivity.class);
+                Bundle extras = new Bundle();
+                extras.putDouble("lat", lat);
+                extras.putDouble("lng", lng);
+                intent.putExtras(extras);
+                startActivity(intent);
             }
         });
     }
@@ -120,8 +139,10 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (passwordEntered) {
-            BigInteger privateKey= AppPasswordService.getKey(password);
+        if (passwordEntered && key) {
+            privateKey = AppPasswordService.getKey(password);
+            key = false;
+            password = null;
         }
     }
 
@@ -150,16 +171,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             Intent intent = new Intent(this, DeviceScanActivity.class);
             startActivity(intent);
             return true;
-        } else if (item.getItemId() == R.id.action_maps) {
-            Intent intent = new Intent(this, MapsActivity.class);
-            Bundle extras = new Bundle();
-            extras.putDouble("lat", lat);
-            extras.putDouble("lng", lng);
-            intent.putExtras(extras);
-            startActivity(intent);
-            return true;
-        }
-        else {
+        } else {
             // user action was not recognized, invoke superclass to handle it
             return super.onOptionsItemSelected(item);
         }
@@ -236,8 +248,6 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
             Log.i(TAG, "Transmitted String: " + transmission);
 
             // security subsystem by Kyle Holman
-            BigInteger privateKey = AppPasswordService.getKey(password);
-
             BigInteger mod = new BigInteger("10283216039871810935867070308763590033267924706279480036805479708407577958672010439491502023522562278580887361154108790868660131671345775095268853731990497");
             BigInteger encData = new BigInteger(transmission);
             //Log.i(TAG, "Decryption Check1: " + String.valueOf(encData));
@@ -292,6 +302,18 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                         if (stringBuilder2.length() > 0) {
                             // convert from decimal degrees to degrees minutes seconds
                             double tempDouble1 = Double.parseDouble(stringBuilder2.toString());
+
+                            // adjustment made for sensor/encryption limitations
+                            tempDouble1 -= 90;
+
+                            // account for out of bounds condition
+                            if (tempDouble1 < -90) {
+                                tempDouble1 = -90;
+                            }
+                            if (tempDouble1 > 90) {
+                                tempDouble1 = 90;
+                            }
+
                             lat = tempDouble1;
                             boolean north = true;
                             if (tempDouble1 < 0) {
@@ -336,6 +358,18 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                         if (stringBuilder2.length() > 0) {
                             // convert from decimal degrees to degrees minutes seconds
                             double tempDouble1 = Double.parseDouble(stringBuilder2.toString());
+
+                            // adjustment made for sensor/encryption limitations
+                            tempDouble1 -= 180;
+
+                            // account for out of bounds condition
+                            if (tempDouble1 < -180) {
+                                tempDouble1 = -180;
+                            }
+                            if (tempDouble1 > 180) {
+                                tempDouble1 = 180;
+                            }
+
                             lng = tempDouble1;
                             boolean east = true;
                             if (tempDouble1 < 0) {
@@ -381,7 +415,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             // convert to integer then display
                             double tempDouble = Double.parseDouble(stringBuilder2.toString());
                             int tempInt = (int) tempDouble;
-                            update_temperature.setText((String.valueOf(tempInt) + "°F"));
+                            update_temperature.setText(String.valueOf(tempInt));
                         }
 
                     // pressure
@@ -525,10 +559,27 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder2.length() > 0) {
-                            // convert to integer then display
+                            double tempDouble = Double.parseDouble(stringBuilder2.toString());
+                            String tempString = String.format("%.1f", tempDouble);
+                            update_speed.setText(tempString);
+                        }
+
+                    // steps
+                    } else if ((c == 'C') || (c == 'c')) {
+                        for (int j = i + 1; j < transmission.length(); j++) {
+                            if (Character.isDigit(transmission.charAt(j))) {
+                                stringBuilder2.append(transmission.charAt(j));
+                            } else if (transmission.charAt(j) == '.') {
+                                stringBuilder2.append(transmission.charAt(j));
+                            } else {
+                                i = j - 1;
+                                break;
+                            }
+                        }
+                        if (stringBuilder2.length() > 0) {
                             double tempDouble = Double.parseDouble(stringBuilder2.toString());
                             int tempInt = (int) tempDouble;
-                            update_speed.setText(String.valueOf(tempInt));
+                            update_steps.setText(String.valueOf(tempInt));
                         }
                     }
                 }
