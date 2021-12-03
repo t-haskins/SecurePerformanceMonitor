@@ -221,11 +221,15 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             if ((c == 'B') || (c == 'b')) {
-                // clear the string for new data
+                // clear the string builder for new data
                 transmitted = false;
                 stringBuilder.delete(0, stringBuilder.length());
             } else if ((c == 'E') || (c == 'e')) {
+                // generate string transmission variable
                 transmission = stringBuilder.toString();
+                // clear the string builder for new data
+                stringBuilder.delete(0, stringBuilder.length());
+                // check that the string is not empty
                 if ((transmission != null) && (transmission.length() > 0)) {
                     transmitted = true;
                 }
@@ -314,6 +318,7 @@ public class PerformanceMetricsActivity extends AppCompatActivity {
                                 tempDouble1 = 90;
                             }
 
+                            //
                             lat = tempDouble1;
                             boolean north = true;
                             if (tempDouble1 < 0) {

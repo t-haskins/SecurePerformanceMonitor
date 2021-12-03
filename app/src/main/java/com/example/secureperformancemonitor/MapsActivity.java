@@ -17,6 +17,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.secureperformancemonitor.databinding.ActivityMapsBinding;
 
+/*
+Class to display raw BLE data
+Author: Google
+Edited Tyler Haskins
+*/
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
